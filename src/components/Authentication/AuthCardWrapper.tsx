@@ -1,28 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import MainCard from "../../utils/ui-components/MainCard";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 
 AuthCardWrapper.propTypes = {
-    children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
-function AuthCardWrapper({children, ...other}: any) {
-    return (
-        <MainCard
-            sx={{
-                maxWidth: {xs: 400, lg: 475},
-                margin: {xs: 2.5, md: 3},
-                '&>*': {
-                    flexGrow: 1,
-                    flexBasis: '50%'
-                }
-            }}
-            content={false}
-            {...other}>
-            <Box sx={{p: {xs: 2, sm: 3, xl: 5}}}>{children}</Box>
-        </MainCard>
-    );
+function AuthCardWrapper({ children, ...other }: any) {
+  return (
+    <MainCard
+      sx={{
+        maxWidth: { xs: 500, lg: 500 },
+        margin: { xs: 2.5, md: 1 },
+        boxShadow: "10px 10px 10px rgba(30,30,30,.1)",
+        borderRadius: 8,
+
+        "&>*": {
+          flexGrow: 1,
+          flexBasis: "50%",
+        },
+      }}
+      content={false}
+      {...other}
+    >
+      <Box sx={{ p: { xs: 2, sm: 2, xl: 3 } }}>{children}</Box>
+    </MainCard>
+  );
 }
 
 export default AuthCardWrapper;

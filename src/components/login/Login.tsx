@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import BasicCard from "./GlassCard";
 
 const Login: React.FC = () => {
   const formik = useFormik({
@@ -35,28 +36,7 @@ const Login: React.FC = () => {
     <Container maxWidth="lg">
       <Grid container component="main" sx={{ height: "760px" }}>
         <Grid item xs={"auto"} sm={6} md={6}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "760px",
-              background: "linear-gradient(135deg, #42E695 0%, #9591EB 100%)",
-              borderRadius: "30px 30px 30px 30px",
-              color: "#fff",
-              textAlign: "center",
-              p: 3,
-              mt: 1,
-              mb: 1,
-            }}
-          >
-            <h4 className="text-white font-bold text-4xl w-85">
-              Your Journey to Better Health Starts Here
-            </h4>
-            {/* <Typography variant="h3" component="div" fontWeight="bold">
-              Your Journey to Better Health Starts Here
-            </Typography> */}
-          </Box>
+          <BasicCard />
         </Grid>
 
         <Grid
@@ -71,12 +51,7 @@ const Login: React.FC = () => {
           }}
         >
           <Box sx={{ width: "75%", maxWidth: "400px" }}>
-            <Typography
-              variant="h5"
-              component="div"
-              fontWeight="bold"
-              sx={{ mb: 1 }}
-            >
+            <Typography variant="h4" component="div" sx={{ mb: 1 }}>
               Doc Assist
             </Typography>
 

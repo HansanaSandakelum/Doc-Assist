@@ -10,7 +10,7 @@ export default function themeTypography(theme) {
             fontWeight: 500,
             color: theme.heading,
             fontSize: '0.75rem'
-        },
+        },  
         h5: {
             fontSize: '0.875rem',
             color: theme.heading,
@@ -69,18 +69,18 @@ export default function themeTypography(theme) {
             marginTop: 1,
             marginBottom: 1,
             '& > label': {
-                top: 23,
-                left: 0,
+                top: 20,
+                left: 1,
                 color: theme.grey500,
                 '&[data-shrink="false"]': {
                     top: 5
                 }
             },
             '& > div > input': {
-                padding: '30.5px 14px 11.5px !important'
+                padding: '22px 14px 11.5px !important'
             },
             '& > div > div': {
-                padding: '30.5px 14px 11.5px !important',
+                padding: '22px 10px 11.5px !important',
             },
             '& legend': {
                 display: 'none'

@@ -152,7 +152,7 @@ export default function componentStyleOverrides(theme) {
           },
 
           "&:hover $notchedOutline": {
-            borderColor: theme.colors?.primaryLight,
+            borderColor: theme.colors?.primaryMain,
           },
 
           "&.MuiInputBase-multiline": {
@@ -170,7 +170,7 @@ export default function componentStyleOverrides(theme) {
           borderRadius: `${theme?.customization?.borderRadius}px`,
 
           "&.MuiInputBase-inputSizeSmall": {
-            padding: "10px 14px",
+            padding: "10px 149px",
 
             "&.MuiInputBase-inputAdornedStart": {
               paddingLeft: 0,

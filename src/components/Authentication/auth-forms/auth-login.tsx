@@ -9,7 +9,7 @@ import {
   Button,
   FormControlLabel,
   FormHelperText,
-  InputAdornment,
+  // InputAdornment,
   InputLabel,
   OutlinedInput,
   Stack,
@@ -32,7 +32,7 @@ AuthLogin.propTypes = {
 };
 
 function AuthLogin({ loginRequest, rememberMe, theme, ...others }: any) {
-//   const navigate = useNavigate();
+  //   const navigate = useNavigate();
   // const rememberMe = useSelector(
   //     (state: any) => state.rememberMe.rememberMeData
   // );
@@ -49,12 +49,12 @@ function AuthLogin({ loginRequest, rememberMe, theme, ...others }: any) {
     <Formik
       enableReinitialize={true}
       initialValues={{
-        username: rememberMe?.usuario || "",
+        mobileNumber: rememberMe?.usuario || "",
         password: rememberMe?.clave || "",
         rememberMe: rememberMe?.recuerdame || false,
       }}
       validationSchema={Yup.object().shape({
-        username: Yup.string().max(255).required("Username is required"),
+        mobileNumber: Yup.number().required("Mobile number is required"),
         password: Yup.string()
           .max(255)
           .required("Password is required")
@@ -88,29 +88,29 @@ function AuthLogin({ loginRequest, rememberMe, theme, ...others }: any) {
         <form noValidate onSubmit={handleSubmit} {...others}>
           <FormControl
             fullWidth
-            error={Boolean(touched.username && errors.username)}
+            error={Boolean(touched.mobileNumber && errors.mobileNumber)}
             sx={{ ...theme.typography.customInput }}
           >
             <InputLabel htmlFor="outlined-adornment-email-login">
-              Username
+              Mobile Number
             </InputLabel>
             <OutlinedInput
               id="outlined-adornment-email-login"
               type="text"
-              value={values.username}
-              name="username"
+              value={values.mobileNumber}
+              name="mobileNumber"
               onBlur={handleBlur}
               onChange={handleChange}
-              label="Email / Username"
+              label="mobileNumber"
               inputProps={{}}
-              sx={{ borderRadius: 4 }}
+              sx={{ borderRadius: 40 }}
             />
-            {touched.username && errors.username && (
+            {touched.mobileNumber && errors.mobileNumber && (
               <FormHelperText
                 error
                 id="standard-weight-helper-text-email-login"
               >
-                {errors.username}
+                {errors.mobileNumber}
               </FormHelperText>
             )}
           </FormControl>
@@ -131,21 +131,22 @@ function AuthLogin({ loginRequest, rememberMe, theme, ...others }: any) {
               onBlur={handleBlur}
               onChange={handleChange}
               endAdornment={
-                <InputAdornment position="end">
+                
                   <IconButton
                     aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
-                    size="large"
+                    size="small"
+                    
                   >
                     {showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
-                </InputAdornment>
+                
               }
               label="Password"
               inputProps={{}}
-              sx={{ borderRadius: 4 }}
+              sx={{ borderRadius: 40}}
             />
             {touched.password && errors.password && (
               <FormHelperText
@@ -194,7 +195,8 @@ function AuthLogin({ loginRequest, rememberMe, theme, ...others }: any) {
                 type="submit"
                 variant="contained"
                 color="primary"
-                sx={{ color: "white", fontWeight: "bold" }}
+               
+                sx={{ color: "white", fontWeight: "bold"}}
               >
                 Sign in
               </Button>

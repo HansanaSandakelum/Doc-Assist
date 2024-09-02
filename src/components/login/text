@@ -1,0 +1,22 @@
+<Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "760px",
+              background: "linear-gradient(135deg, #42E695 0%, #9591EB 100%)",
+              borderRadius: "30px 30px 30px 30px",
+              color: "#fff",
+              textAlign: "left",
+              p: 3,
+              mt: 1,
+              mb: 1,
+            }}
+          >
+            {/* <h4 className="text-white font-bold text-4xl w-85">
+              Your Journey to Better Health Starts Here
+            </h4> */}
+            <Typography variant="h1" component="div" fontSize={55} sx={{color:'white', width:'430px'}}>
+              Your Journey to Better Health Starts Here
+            </Typography>
+          </Box>

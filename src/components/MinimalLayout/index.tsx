@@ -3,7 +3,7 @@ import {Outlet} from 'react-router-dom';
 import AuthFooter from "../Footer/AuthFooter";
 import {styled, useTheme} from "@mui/material/styles";
 import {Box} from "@mui/material";
-import Customization from "../Customization";
+// import Customization from "../Customization";
 
 // ==============================|| MINIMAL LAYOUT ||============================== //
 
@@ -16,7 +16,7 @@ const MinimalLayout = () => {
         <Box>
             <Layout theme={theme}>
                 <Outlet/>
-                <Customization/>
+                {/* <Customization/> */}
             </Layout>
             <AuthFooter/>
         </Box>

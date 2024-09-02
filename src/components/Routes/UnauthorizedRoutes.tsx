@@ -5,7 +5,7 @@ import Loadable from "./RouteLoad/Loadable";
 import {Navigate} from "react-router-dom";
 import MinimalLayout from "../MinimalLayout";
 
-const Login = Loadable(lazy(() => import('../login/Login')));
+const Login = Loadable(lazy(() => import('../Authentication/authentication/login-new')));
 const SignUp = Loadable(lazy(() => import('../Authentication/authentication/register')));
 
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
