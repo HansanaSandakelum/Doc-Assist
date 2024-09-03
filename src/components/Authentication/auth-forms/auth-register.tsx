@@ -294,7 +294,7 @@ function AuthRegister({ ...others }) {
             error={Boolean(touched.email && errors.email)}
             sx={{ ...theme.typography.customInput }}
           >
-            <InputLabel htmlFor="outlined-adornment-username-register">
+            <InputLabel>
               Past Medical History
             </InputLabel>
             <OutlinedInput

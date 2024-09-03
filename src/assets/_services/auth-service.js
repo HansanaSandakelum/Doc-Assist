@@ -1,33 +1,63 @@
 import * as api from "../api/index";
-import {
-    FORGET_ME_REQUIRED,
-    LOGIN_REQUIRED,
-    REMEMBER_ME_REQUIRED
-} from "../../redux/actions/actions";
 export const AuthService = {
-    signIn: (values, dispatch) => dispatch(signIn(values)),
+  validateMobile,
+  verifyMobile,
+  sendLoginOtp,
+  verifyLogin,
+  resendLoginOtp,
+  resendRegisterOtp,
+};
+
+async function sendLoginOtp(formData) {
+  try {
+    const { data } = await api.signIn(formData);
+    return { isSuccess: true, data: data };
+  } catch (error) {
+    return { isSuccess: false, data: error };
+  }
 }
 
-const signIn = (formData) => async (dispatch) => {
-    try {
-        const { data } = await api.signIn(formData);
+async function verifyLogin(formData) {
+  try {
+    const { data } = await api.verifyLogin(formData);
+    return { isSuccess: true, data: data };
+  } catch (error) {
+    return { isSuccess: false, data: error };
+  }
+}
 
-        if (formData.rememberMe) {
-            let rememberUserData = {
-                usuario: formData.username,
-                clave: formData.password,
-                recuerdame: formData.rememberMe,
-            };
-            dispatch({ type: REMEMBER_ME_REQUIRED, rememberUserData });
-        } else {
-            dispatch({ type: FORGET_ME_REQUIRED });
-        }
+async function validateMobile(formData) {
+  try {
+    const { data } = await api.sentOTP(formData);
+    return { isSuccess: true, data: data };
+  } catch (error) {
+    return { isSuccess: false, data: error };
+  }
+}
 
-        dispatch({ type: LOGIN_REQUIRED, data });
+async function verifyMobile(formData) {
+  try {
+    const { data } = await api.verifyTheNumber(formData);
+    return { isSuccess: true, data: data };
+  } catch (error) {
+    return { isSuccess: false, data: error };
+  }
+}
 
-        return {isSuccess: true, data: data.data};
-    } catch (error) {
+async function resendLoginOtp() {
+  try {
+    const { data } = await api.resendLoginOtp();
+    return { isSuccess: true, data: data };
+  } catch (error) {
+    return { isSuccess: false, data: error };
+  }
+}
 
-        return {isSuccess: false, data: error};
-    }
+async function resendRegisterOtp() {
+  try {
+    const { data } = await api.resendRegisterOtp();
+    return { isSuccess: true, data: data };
+  } catch (error) {
+    return { isSuccess: false, data: error };
+  }
 }

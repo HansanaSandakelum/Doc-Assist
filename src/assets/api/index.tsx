@@ -12,30 +12,31 @@ export const signIn = (formData: any) => {
 
 export const signUp = (formData: {
   name: string;
-  
+
   mobile: string;
   register: string;
   password: string;
   station: string;
-  hotline: number;
-  sessions: number;
-  inventory: number;
-  
+  hotline: boolean;
+  sessions: boolean;
+  inventory: boolean;
 }) => {
+  const hotlineNumber = formData.hotline ? 1 : 0;
+  const sessionsNumber = formData.sessions ? 1 : 0;
+  const inventoryNumber = formData.inventory ? 1 : 0;
+
   const postData = {
     firstName: formData.name,
     register: formData.register,
     station: formData.station,
     password: formData.password,
     contactNumber: formData.mobile,
-    
-    hotline: formData.hotline,
-    sessions: formData.sessions,
-    inventory: formData.inventory,
-    
+    hotline: hotlineNumber,
+    sessions: sessionsNumber,
+    inventory: inventoryNumber,
   };
 
-  return api.post("/api/v1/registration/owner-registration", postData);
+  return api.post("/user-registration/doctor-registration", postData);
 };
 
 // -------------------# dashboard services endpoints start here #-------------------------

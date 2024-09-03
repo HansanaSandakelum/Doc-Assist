@@ -18,8 +18,6 @@ function App({ store }: any) {
   injectStore(store);
   const customization = useSelector((state: any) => state.customization);
 
-  console.log(customization);
-
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={themes(customization)}>

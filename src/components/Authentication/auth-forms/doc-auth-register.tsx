@@ -31,7 +31,7 @@ import { openSuccessDialog } from "../../../utils/ui-components/pop-ups/SuccessD
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { strengthColor, strengthIndicator } from "../../../utils/utils";
-import { MuiOtpInput } from "mui-one-time-password-input";
+// import { MuiOtpInput } from "mui-one-time-password-input";
 // import { register } from "module";
 
 function DocAuthRegister({ ...others }) {
@@ -58,21 +58,21 @@ function DocAuthRegister({ ...others }) {
   };
 
   //!...................otp button.........................................
-  const [display, setDisplay] = useState(false);
+  // const [display, setDisplay] = useState(false);
 
-  const [otp, setOtp] = React.useState("");
+  // const [otp, setOtp] = React.useState("");
 
-  const handleOtp = (newValue: any) => {
-    setOtp(newValue);
-  };
+  // const handleOtp = (newValue: any) => {
+  //   setOtp(newValue);
+  // };
 
-  const handleDisplayOtp = () => {
-    if (display) {
-      setDisplay(false);
-    } else {
-      setDisplay(true);
-    }
-  };
+  // const handleDisplayOtp = () => {
+  //   if (display) {
+  //     setDisplay(false);
+  //   } else {
+  //     setDisplay(true);
+  //   }
+  // };
 
   useEffect(() => {
     // changePassword("123456");
@@ -86,9 +86,9 @@ function DocAuthRegister({ ...others }) {
         password: "",
         station: "",
         checked: false,
-        hotline: 0,
-        sessions: 0,
-        inventory: 0,
+        hotline: false,
+        sessions: false,
+        inventory: false,
         submit: null,
       }}
       validationSchema={Yup.object().shape({
@@ -234,7 +234,7 @@ function DocAuthRegister({ ...others }) {
               </FormControl>
             </Grid>
             {/* OTP Button ................................ */}
-            <Grid item xs={3} sm={3} sx={{}}>
+            {/* <Grid item xs={3} sm={3} sx={{}}>
               <Box sx={{ mt: 2, ml: { xs: 1, md: 0 } }}>
                 <AnimateButton>
                   <Button
@@ -257,10 +257,10 @@ function DocAuthRegister({ ...others }) {
                   </Button>
                 </AnimateButton>
               </Box>
-            </Grid>
+            </Grid> */}
           </Grid>
 
-          <Grid item>
+          {/* <Grid item>
             {display && (
               <Grid container sx={{ width: 300 }} spacing={4}>
                 <Grid item xs={10}>
@@ -292,7 +292,7 @@ function DocAuthRegister({ ...others }) {
                 </Grid>
               </Grid>
             )}
-          </Grid>
+          </Grid> */}
 
           <Grid item>
             <FormControl
@@ -300,11 +300,11 @@ function DocAuthRegister({ ...others }) {
               error={Boolean(touched.register && errors.register)}
               sx={{ ...theme.typography.customInput }}
             >
-              <InputLabel htmlFor="outlined-adornment-username-register">
+              <InputLabel >
                 Registration Number
               </InputLabel>
               <OutlinedInput
-                id="outlined-adornment-username-register"
+                id="outlined-adornment-username-register2"
                 type="text"
                 value={values.register}
                 name="register"
@@ -361,17 +361,14 @@ function DocAuthRegister({ ...others }) {
             <FormGroup sx={{ display: "flex", flexDirection: "row" }}>
               <FormControlLabel
                 control={
-                  <Checkbox
-                    checked={values.sessions === 1 ? true : false}
-                    onChange={handleChange}
-                  />
+                  <Checkbox checked={values.sessions} onChange={handleChange} />
                 }
                 label="Sessions"
               />
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={values.inventory === 1 ? true : false}
+                    checked={values.inventory}
                     onChange={handleChange}
                   />
                 }
@@ -381,7 +378,7 @@ function DocAuthRegister({ ...others }) {
                 control={
                   <Checkbox
                     name="hotline"
-                    checked={values.hotline === 1 ? true : false}
+                    checked={values.hotline}
                     onChange={handleChange}
                   />
                 }
