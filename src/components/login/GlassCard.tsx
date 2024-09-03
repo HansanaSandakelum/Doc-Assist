@@ -6,7 +6,7 @@ const useStyles = makeStyles({
     minWidth: 400,
 
     // backgroundColor: "rgba(255,255,255,0.4)",
-    backgroundColor:'	rgb(255,255,255,0.2)',
+    backgroundColor: "	rgb(255,255,255,0.2)",
     backdropFilter: "blur(100)px",
     boxShadow: "10px 10px 10px rgba(30,30,30,.1)",
     borderRadius: 20,
@@ -23,7 +23,7 @@ export default function BasicCard() {
             justifyContent: "center",
             alignItems: "center",
             height: 600,
-            width:600,
+            width: 600,
 
             color: "#fff",
             textAlign: "left",
@@ -32,8 +32,9 @@ export default function BasicCard() {
             mb: 1,
           }}
         >
-          <Typography component="div" variant= 'h1'>
-            Your Journey to Better Health Starts Here
+          <Typography component="div" variant="h1" style={{ fontWeight: 500 }}>
+            Your Journey to Better Health Starts{" "}
+            <Box sx={{ color: "black" }}>Here </Box>
           </Typography>
         </Box>
       </CardContent>

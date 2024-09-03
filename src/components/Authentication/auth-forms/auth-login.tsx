@@ -131,22 +131,19 @@ function AuthLogin({ loginRequest, rememberMe, theme, ...others }: any) {
               onBlur={handleBlur}
               onChange={handleChange}
               endAdornment={
-                
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                    size="small"
-                    
-                  >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                  size="small"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
               }
               label="Password"
               inputProps={{}}
-              sx={{ borderRadius: 40}}
+              sx={{ borderRadius: 40 }}
             />
             {touched.password && errors.password && (
               <FormHelperText
@@ -195,8 +192,7 @@ function AuthLogin({ loginRequest, rememberMe, theme, ...others }: any) {
                 type="submit"
                 variant="contained"
                 color="primary"
-               
-                sx={{ color: "white", fontWeight: "bold"}}
+                sx={{ color: "white", fontWeight: "bold", p: 1.5 }}
               >
                 Sign in
               </Button>

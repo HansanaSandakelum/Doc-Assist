@@ -10,7 +10,7 @@ function AuthCardWrapper({ children, ...other }: any) {
   return (
     <MainCard
       sx={{
-        maxWidth: { xs: 500, lg: 500 },
+        maxWidth: { xs: 500, lg: 470 },
         margin: { xs: 2.5, md: 1 },
         boxShadow: "10px 10px 10px rgba(30,30,30,.1)",
         borderRadius: 8,
@@ -23,7 +23,7 @@ function AuthCardWrapper({ children, ...other }: any) {
       content={false}
       {...other}
     >
-      <Box sx={{ p: { xs: 2, sm: 2, xl: 3 } }}>{children}</Box>
+      <Box sx={{ p: { xs: 2, sm: 4, xl: 5 } }}>{children}</Box>
     </MainCard>
   );
 }

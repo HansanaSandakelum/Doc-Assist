@@ -50,7 +50,7 @@ function Login(props: any) {
             justifyContent="center"
           >
             <Grid item>
-              <img height="60" src={logoIcon} />
+              <img height="70" src={logoIcon} />
             </Grid>
             {/* <Grid item>
                 <img
