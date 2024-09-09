@@ -15,8 +15,14 @@ import Loader from "../../../utils/ui-components/Loader";
 import { openSnackBar } from "../../../utils/ui-components/CustomSnackBar";
 import { AuthService } from "../../../assets/_services/auth-service";
 import { connect } from "react-redux";
-import { getLogout, setRedirectPath } from "../../../redux/actions/actions";
+import {
+  // getLoginSuccess,
+  getLogout,
+  setRedirectPath,
+} from "../../../redux/actions/actions";
 import { CircularProgress } from "@mui/material";
+// import { number } from "yup";
+import CountdownTimer from "../../../utils/ui-components/count-down";
 
 const numInputs = 6;
 
@@ -36,7 +42,7 @@ const MobileNumberVerification = (props: any) => {
   const token = location?.state?.token;
   const mobile = location?.state?.mobile || "?????????";
   const startTime = location?.state?.startTime;
-//   const dateTimeAfterThreeDays = startTime + location?.state?.expireTime;
+    const dateTimeAfterThreeDays = startTime + location?.state?.expireTime;
   const enableGetOtpTime = 60000;
 
   const [otp, setOtp] = useState("");
@@ -82,13 +88,17 @@ const MobileNumberVerification = (props: any) => {
 
   const verify = (values: any) => {
     setLoading(true);
-    const formData = {
-      registrationOTP: values,
-    };
-    AuthService?.verifyMobile(formData).then((response: { isSuccess: any }) => {
+    
+    const formData = values;
+
+    AuthService?.verifyMobile(formData).then((response) => {
+      console.log("response", response);
+
       if (response.isSuccess) {
         getLogout();
         setLoading(false);
+        console.log("response", response);
+
         // dispatch(getLoginSuccess(response.data))
         navigate("/login");
       } else {
@@ -109,22 +119,23 @@ const MobileNumberVerification = (props: any) => {
         setDisabledTime(new Date().getTime() + enableGetOtpTime);
         setCountDown(enableGetOtpTime);
       } else {
-        getLogout();
+        // getLogout();
         setLoadingOtp(false);
-        navigate("/login");
+        // navigate("/login");
       }
     });
   };
 
   useEffect(() => {
     setRedirectPath(null);
-    // window.onpopstate = ()=> {
-    //     getLogout()
-    // }
+    window.onpopstate = () => {
+      // getLogout()
+    };
     if (!token) {
       openSnackBar("User data cannot be found", "warning");
-      navigate("/login");
+      // navigate("/login");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -187,11 +198,11 @@ const MobileNumberVerification = (props: any) => {
                         alignItems="center"
                         justifyContent="center"
                       >
-                        {/* <CountdownTimer
+                        <CountdownTimer
                           date={dateTimeAfterThreeDays}
                           renderer={renderer}
-                          clear={clearOtp}
-                        /> */}
+                          // clear={clearOtp}
+                        />
                       </Grid>
                     </Grid>
                     <Grid item xs={12} marginTop={2}>

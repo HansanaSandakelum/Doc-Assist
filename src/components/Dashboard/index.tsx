@@ -9,7 +9,7 @@ import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
-import CustomerEngagementChart from "./customer-engagement-chart";
+// import CustomerEngagementChart from "./customer-engagement-chart";
 import DatePicker from "../../utils/ui-components/FormsUI/DatePicker";
 import { useTheme } from "@mui/material/styles";
 import dayjs from "dayjs";
@@ -105,7 +105,7 @@ function Dashboard() {
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <CustomerEngagementChart isLoading={isLoading} />
+                      {/* <CustomerEngagementChart isLoading={isLoading} /> */}
                     </Grid>
                   </Grid>
                 </Grid>

@@ -1,11 +1,12 @@
 import * as actions from "../actions/actions";
-import { decrypt, encrypt } from "../../utils/utils";
+import { encrypt } from "../../utils/utils";
 
 const initialState = {
   requesting: false,
   successful: false,
   authData: null,
   errors: null,
+  redirectPath: null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -17,6 +18,7 @@ const authReducer = (state = initialState, action) => {
         successful: false,
         authData: null,
         errors: null,
+        redirectPath: null,
       };
     case actions.Types.LOGIN_SUCCESS:
       let encryptedData = encrypt({ ...action.payload.data });
@@ -26,6 +28,7 @@ const authReducer = (state = initialState, action) => {
         successful: true,
         authData: encryptedData,
         errors: null,
+        redirectPath: null,
       };
     case actions.Types.LOGIN_ERROR:
       return {
@@ -34,6 +37,26 @@ const authReducer = (state = initialState, action) => {
         successful: false,
         authData: null,
         errors: action.payload.error,
+        redirectPath: null,
+      };
+    case actions.Types.REGISTER_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        successful: false,
+        authData: null,
+        errors: null,
+        redirectPath: null,
+      };
+    case actions.Types.REGISTER_SUCCESS:
+      let encryptedRegistedData = encrypt({ ...action.payload.data });
+      return {
+        ...state,
+        requesting: false,
+        successful: true,
+        authData: encryptedRegistedData,
+        errors: null,
+        redirectPath: null,
       };
     case actions.Types.LOGOUT:
       return {
@@ -42,19 +65,16 @@ const authReducer = (state = initialState, action) => {
         successful: false,
         authData: null,
         errors: null,
+        redirectPath: null,
       };
+
     case actions.Types.SET_REDIRECT_PATH:
       return {
         ...state,
-
         requesting: false,
-
         successful: false,
-
         // authData: null,
-
         errors: null,
-
         redirectPath: action.payload,
       };
     default:

@@ -16,27 +16,27 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import * as Yup from "yup";
-import * as api from "../../../assets/api/index";
+// import * as api from "../../../assets/api/index";
 import { Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // import {useSelector} from 'react-redux';
 // import { strengthColor, strengthIndicator } from "../../../utils/utils";
 // import Visibility from "@mui/icons-material/Visibility";
 // import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AnimateButton from "../../../utils/ui-components/AnimateButton";
-import { openSuccessDialog } from "../../../utils/ui-components/pop-ups/SuccessDialog";
+// import { openSuccessDialog } from "../../../utils/ui-components/pop-ups/SuccessDialog";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { strengthColor, strengthIndicator } from "../../../utils/utils";
 // import { MuiOtpInput } from "mui-one-time-password-input";
 // import { register } from "module";
 
-function DocAuthRegister({ ...others }) {
+function DocAuthRegister({ registerRequest, ...others }: any) {
   const theme: any = useTheme();
-  const navigate = useNavigate();
+
   const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
   const [showPassword, setShowPassword] = useState(false);
 
@@ -89,15 +89,15 @@ function DocAuthRegister({ ...others }) {
         hotline: false,
         sessions: false,
         inventory: false,
-        submit: null,
+        // submit: null,
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string().required("Your Name is required"),
 
-        email: Yup.string()
-          .email("Must be a valid email")
-          .max(255)
-          .required("Email is required"),
+        // email: Yup.string()
+        //   .email("Must be a valid email")
+        //   .max(255)
+        //   .required("Email is required"),
         mobile: Yup.string()
           .required("Please enter mobile number")
           .matches(
@@ -115,26 +115,18 @@ function DocAuthRegister({ ...others }) {
           .required("You must agree with terms & conditions")
           .oneOf([true], "You must agree with terms & conditions"),
       })}
-      onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-        try {
-          if (values) {
-            setStatus({ success: true });
-            setSubmitting(false);
+      onSubmit={async (values) => {
+        if (values) {
+          // const { data } = await api.signUp(values);
+          registerRequest(values);
 
-            const { data } = await api.signUp(values);
-
-            openSuccessDialog(data.status, data.comment);
-            navigate("/login");
-          }
-        } catch (err: any) {
-          setStatus({ success: false });
-          setErrors({ submit: err.message });
-          setSubmitting(false);
+          // openSuccessDialog(data.status, data.comment);
         }
       }}
     >
       {({
         errors,
+        isValid,
         handleBlur,
         handleChange,
         handleSubmit,
@@ -203,7 +195,7 @@ function DocAuthRegister({ ...others }) {
             justifyContent="center"
             spacing={matchDownSM ? 0 : 2}
           >
-            <Grid item xs={9} sm={9}>
+            <Grid item xs={12}>
               <FormControl
                 fullWidth
                 error={Boolean(touched.mobile && errors.mobile)}
@@ -213,7 +205,7 @@ function DocAuthRegister({ ...others }) {
                   Mobile *
                 </InputLabel>
                 <OutlinedInput
-                  id="outlined-adornment-mobile-register"
+                  id="mobile"
                   type="tel"
                   value={values.mobile}
                   name="mobile"
@@ -300,11 +292,9 @@ function DocAuthRegister({ ...others }) {
               error={Boolean(touched.register && errors.register)}
               sx={{ ...theme.typography.customInput }}
             >
-              <InputLabel >
-                Registration Number
-              </InputLabel>
+              <InputLabel>Registration Number</InputLabel>
               <OutlinedInput
-                id="outlined-adornment-username-register2"
+                id="register"
                 type="text"
                 value={values.register}
                 name="register"
@@ -324,7 +314,7 @@ function DocAuthRegister({ ...others }) {
                 Current working station
               </InputLabel>
               <OutlinedInput
-                id="outlined-adornment-username-register"
+                id="station"
                 type="text"
                 value={values.station}
                 name="station"
@@ -361,13 +351,18 @@ function DocAuthRegister({ ...others }) {
             <FormGroup sx={{ display: "flex", flexDirection: "row" }}>
               <FormControlLabel
                 control={
-                  <Checkbox checked={values.sessions} onChange={handleChange} />
+                  <Checkbox
+                    name="sessions"
+                    checked={values.sessions}
+                    onChange={handleChange}
+                  />
                 }
                 label="Sessions"
               />
               <FormControlLabel
                 control={
                   <Checkbox
+                    name="inventory"
                     checked={values.inventory}
                     onChange={handleChange}
                   />
@@ -396,7 +391,7 @@ function DocAuthRegister({ ...others }) {
               Password *
             </InputLabel>
             <OutlinedInput
-              id="outlined-adornment-password-register"
+              id="password"
               type={showPassword ? "text" : "password"}
               value={values.password}
               name="password"
@@ -477,12 +472,17 @@ function DocAuthRegister({ ...others }) {
               )}
             </Grid>
           </Grid>
+          {/* {errors.submit && (
+            <Box sx={{ mt: 3 }}>
+              <FormHelperText error>{errors.submit}</FormHelperText>
+            </Box>
+          )} */}
 
           <Box sx={{ mt: 2 }}>
             <AnimateButton>
               <Button
                 disableElevation
-                disabled={isSubmitting}
+                disabled={isSubmitting || !isValid}
                 fullWidth
                 size="large"
                 type="submit"

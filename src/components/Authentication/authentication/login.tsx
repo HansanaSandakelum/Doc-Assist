@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect} from "react-redux";
 import { useTheme } from "@mui/material/styles";
 import { Divider, Grid, Stack, Typography, useMediaQuery } from "@mui/material";
 // import AuthCardWrapper from "../AuthCardWrapper";
@@ -21,7 +21,7 @@ function Login(props: any) {
   } = props;
 
   const theme = useTheme();
-  const dispatch = useDispatch();
+ 
   // const [loading, setLoading] = useState(false);
   const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -41,7 +41,7 @@ function Login(props: any) {
           <BasicCard />
         </Grid> */}
         {/* <AuthCardWrapper> */}
-        <Grid item spacing={2} alignItems="center" justifyContent="center">
+        <Grid item  alignItems="center" justifyContent="center">
           <Grid
             container
             spacing={2}
@@ -96,7 +96,7 @@ function Login(props: any) {
             <AuthLogin
               rememberMe={getState(rememberMe)}
               loginRequest={loginRequest}
-              dispatch={dispatch}
+              
               theme={theme}
             />
           </Grid>

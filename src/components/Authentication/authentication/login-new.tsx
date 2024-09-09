@@ -4,6 +4,9 @@
 import { Grid } from "@mui/material";
 import Login from "./login";
 import BasicCard from "../../login/GlassCard";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import {  setRedirectPath } from "../../../redux/actions/actions";
 // import { url } from "inspector";
 
 // interface FormValues {
@@ -13,6 +16,12 @@ import BasicCard from "../../login/GlassCard";
 // }
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // dispatch(getLogout());
+    dispatch(setRedirectPath(null));
+  }, []);
   //   const formik: FormikProps<FormValues> = useFormik<FormValues>({
   //     initialValues: {
   //       mobileNumber: "",
@@ -38,8 +47,9 @@ const LoginForm = () => {
         md={6}
         xl={7}
         sx={{
-          backgroundImage:   "linear-gradient(-45deg, #5650D2 0%, #32B78D 99%, #32B78D 100%)",
-          display: { xs: "none", sm: "none" ,md:'flex'},
+          backgroundImage:
+            "linear-gradient(-45deg, #5650D2 0%, #32B78D 99%, #32B78D 100%)",
+          display: { xs: "none", sm: "none", md: "none", lg: "flex" },
           justifyContent: "center",
           alignItems: "center",
           borderRadius: 6,
@@ -59,7 +69,7 @@ const LoginForm = () => {
         <BasicCard />
       </Grid>
 
-      <Grid item sx={{mx:'auto'}}>
+      <Grid item sx={{ mx: "auto" }}>
         <img src="../../../assets/images/doc logo.png" alt="" />
         <Login />
       </Grid>

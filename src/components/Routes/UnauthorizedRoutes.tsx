@@ -6,16 +6,39 @@ import {Navigate} from "react-router-dom";
 import MinimalLayout from "../MinimalLayout";
 
 const Login = Loadable(lazy(() => import('../Authentication/authentication/login-new')));
+const MobileNumberVerify = Loadable(lazy(() => import('../Authentication/verification/verify-mobile')));
+const LoginVerification = Loadable(lazy(() => import('../Authentication/verification/verify-login')));
 const SignUp = Loadable(lazy(() => import('../Authentication/authentication/doc-register')));
 
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
 
-const UnauthorizedRoutes =
-    [
+function UnauthorizedRoutes(user:any){
+    return [
         {
             path: '/',
             element: <MinimalLayout/>,
-            children: [
+            children: user?.token ? [
+                {
+                    path: '/',
+                    element: <Login/>
+                },
+                {
+                    path: 'login',
+                    element: <Login/>
+                },
+                {
+                    path: 'verify-mobile',
+                    element: <MobileNumberVerify/>
+                },
+                {
+                    path: 'verify-login',
+                    element: <LoginVerification/>
+                },
+                {
+                    path: 'signup',
+                    element: <SignUp/>
+                }
+            ] : [
                 {
                     path: '/',
                     element: <Login/>
@@ -33,7 +56,8 @@ const UnauthorizedRoutes =
         {
             path: "*",
             element: <Navigate to="/login"/>
-        }
+        },
     ];
+}
 
 export default UnauthorizedRoutes;

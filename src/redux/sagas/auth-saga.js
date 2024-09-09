@@ -6,6 +6,8 @@ function loginApi(values) {
   return new Promise(async (resolve, reject) => {
     try {
       const { data } = await api.signIn(values);
+      console.log(data);
+
       resolve(data);
     } catch (error) {
       reject(error);
@@ -14,9 +16,13 @@ function loginApi(values) {
 }
 
 function registerApi(values) {
+  // console.log(values);
+
   return new Promise(async (resolve, reject) => {
     try {
-      const { data } = await api.ownerRegister(values);
+      const { data } = await api.signUp(values);
+      console.log(data);
+
       resolve(data);
     } catch (error) {
       reject(error);
@@ -28,14 +34,12 @@ function* loginFlow(values) {
   let data;
   try {
     data = yield call(loginApi, values);
+    console.log("loginflow:", data);
 
-    if (data?.data?.loginOTPToken) {
+    if (data?.data?.token) {
       // .. also inform auth redux that our login was successful
       yield put(
-        actions.getLoginSuccess({
-          ...data,
-          data: { token: data?.data?.loginOTPToken },
-        })
+        actions.getLoginSuccess(data)
       );
 
       // .. also inform remember me redux that our login was successful
@@ -50,6 +54,8 @@ function* loginFlow(values) {
         yield put(actions.setForgetMe());
       }
       // redirect them to login OTP varification!
+
+      //! set login path.......................................................
       yield put(
         actions.setRedirectPath("/verify-login", {
           state: {
@@ -68,16 +74,16 @@ function* loginFlow(values) {
         })
       );
 
-      yield put(
-        actions.setRedirectPath("/verify-mobile", {
-          state: {
-            token: data?.data.registrationOTPToken,
-            mobile: data?.data.mobile,
-            startTime: new Date().getTime(),
-            expireTime: data?.data?.registrationOTPTokenExpirationTime,
-          },
-        })
-      );
+      // yield put(
+      //   actions.setRedirectPath("/verify-mobile", {
+      //     state: {
+      //       token: data?.data.registrationOTPToken,
+      //       mobile: data?.data.mobile,
+      //       startTime: new Date().getTime(),
+      //       expireTime: data?.data?.registrationOTPTokenExpirationTime,
+      //     },
+      //   })
+      // );
     }
   } catch (error) {
     // error? send it to redux
@@ -86,17 +92,20 @@ function* loginFlow(values) {
     // No matter what, if our `forked` `task` was cancelled
     // we will then just redirect them to login
     if (yield cancelled()) {
-      yield put(actions.setRedirectPath("/login"));
+      yield put(actions.setRedirectPath("/login-new"));
     }
   }
 
   return data;
 }
 
+//?......................register flow.............................................
+
 function* registerFlow(values) {
   let data;
   try {
     data = yield call(registerApi, values);
+    console.log("registerflow:", data);
 
     // .. also inform auth redux that our login was successful
     yield put(
@@ -104,11 +113,10 @@ function* registerFlow(values) {
         ...data,
         data: {
           mobile: data.data.mobile,
-          token: data.data.registrationOTPToken,
+          token: data.data.verifyMobileOTPToken,
         },
       })
     );
-
     // redirect them to OTP verification!
     yield put(
       actions.setRedirectPath("/verify-mobile", {
@@ -130,7 +138,6 @@ function* registerFlow(values) {
       yield put(actions.setRedirectPath("/login"));
     }
   }
-
   return data;
 }
 
@@ -158,7 +165,7 @@ function* loginWatcher() {
       actions.Types.LOGIN_ERROR,
     ]);
     if (action.type === actions.Types.LOGOUT) yield cancel(task);
-    yield call(logout);
+    // yield call(logout);
   }
 }
 

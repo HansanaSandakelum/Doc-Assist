@@ -25,58 +25,70 @@ export const SET_LANGUAGE_REQUESTED = "@language/SET_LANGUAGE_REQUESTED";
 
 export const Types = {
   LOGIN_REQUESTING: "@auth/LOGIN_REQUESTING",
-  LOGIN_REQUEST: "@auth/LOGIN_REQUEST",
   LOGIN_SUCCESS: "@auth/LOGIN_SUCCESS",
   LOGIN_ERROR: "@auth/LOGIN_ERROR",
+  REGISTER_REQUESTING: "@auth/REGISTER_REQUESTING",
+  REGISTER_SUCCESS: "@auth/REGISTER_SUCCESS",
+  REGISTER_ERROR: "@auth/REGISTER_ERROR",
   LOGOUT: "@auth/LOGOUT",
-  REMEMBER_ME: "@remember-me/REMEMBER_ME",
-  FORGET_ME: "@remember-me/FORGET_ME",
   SET_REDIRECT_PATH: "@auth/SET_REDIRECT_PATH",
+  REMEMBER_ME: "@remember-me/REMEMBER_ME",
+  FORGET_ME: "@remember-me/FORGET_ME"
 };
+
 
 // In order to perform an action of type LOGIN_REQUESTING
 // we need an email and password
 export function loginRequest(values) {
   return {
-    type: Types.LOGIN_REQUESTING,
-    payload: values,
-  };
+      type: Types.LOGIN_REQUESTING,
+      payload: values
+  }
 }
 
-export const getLoginSuccess = (items) => ({
-  type: Types.LOGIN_SUCCESS,
-  payload: items,
-});
-export const getRegisterSuccess = (items) => ({
-  type: Types.REGISTER_SUCCESS,
-  payload: items,
-});
-
-export const getLoginError = (items) => ({
-  type: Types.LOGIN_ERROR,
-  payload: items,
-});
-
-export const getLogout = () => ({
-  type: Types.LOGOUT,
-});
-
-export const setRememberMe = (items) => ({
-  type: Types.REMEMBER_ME,
-  payload: items,
-});
-
-export const setForgetMe = () => ({
-  type: Types.FORGET_ME,
-});
-
-export function getState(state) {
-  return decrypt(state);
+export function registerRequest(values) {
+  
+  return {
+      type: Types.REGISTER_REQUESTING,
+      payload: values
+  }
 }
 
 export function setRedirectPath(path, state) {
   return {
-    type: Types.SET_REDIRECT_PATH,
-    payload: { path: path, state: state },
-  };
+      type: Types.SET_REDIRECT_PATH,
+      payload: {path: path, state: state}
+  }
+}
+
+export const getLoginSuccess = items => ({
+  type: Types.LOGIN_SUCCESS,
+  payload: items
+});
+
+export const getRegisterSuccess = items => ({
+  type: Types.REGISTER_SUCCESS,
+  payload: items
+});
+
+export const getLoginError = items => ({
+  type: Types.LOGIN_ERROR,
+  payload: items
+});
+
+export const getLogout = () => ({
+  type: Types.LOGOUT
+});
+
+export const setRememberMe = items => ({
+  type: Types.REMEMBER_ME,
+  payload: items
+});
+
+export const setForgetMe = () => ({
+  type: Types.FORGET_ME
+});
+
+export function getState(state) {
+  return decrypt(state);
 }

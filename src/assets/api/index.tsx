@@ -3,11 +3,11 @@ import axios from "axios";
 
 export const signIn = (formData: any) => {
   const postData = {
-    email: formData.username,
+    mobile: formData.mobileNumber,
     password: formData.password,
   };
 
-  return api.post("/api/v1/sso/login-or-register-with-azure", postData);
+  return api.post("/user-login/user-login", postData);
 };
 
 export const signUp = (formData: {
@@ -21,22 +21,48 @@ export const signUp = (formData: {
   sessions: boolean;
   inventory: boolean;
 }) => {
-  const hotlineNumber = formData.hotline ? 1 : 0;
-  const sessionsNumber = formData.sessions ? 1 : 0;
-  const inventoryNumber = formData.inventory ? 1 : 0;
+  const hotlineNumber = formData.hotline ? "1" : "0";
+  const sessionsNumber = formData.sessions ? "1" : "0";
+  const inventoryNumber = formData.inventory ? "1" : "0";
+
+  const featuresNeeded = sessionsNumber + inventoryNumber + hotlineNumber;
 
   const postData = {
-    firstName: formData.name,
-    register: formData.register,
-    station: formData.station,
+    // firstName: formData.name,
+    mobile: formData.mobile,
     password: formData.password,
-    contactNumber: formData.mobile,
-    hotline: hotlineNumber,
-    sessions: sessionsNumber,
-    inventory: inventoryNumber,
+    registrationNumber: formData.register,
+    currentWorkingStation: formData.station,
+    featuresNeeded: featuresNeeded,
+    // contactNumber: formData.mobile,
+    // hotline: hotlineNumber,
+    // sessions: sessionsNumber,
+    // inventory: inventoryNumber,
   };
+  console.log(postData);
 
   return api.post("/user-registration/doctor-registration", postData);
+};
+
+// -------------------# sentOtp #-------------------------
+
+export const sentOTP = (formData: any) => {
+  const postData = {
+    userId: formData.userId,
+    mobile: formData.mobile,
+  };
+
+  return api.post("/registration/send-the-OTP", postData);
+};
+
+// -------------------# verifyOtp #-------------------------
+export const verifyTheNumber = (formData: any) => {
+  const postdata = {
+    verifyMobileOTPNumber: Number(formData),
+  };
+  console.log(postdata);
+
+  return api.post("/user-registration/verify-mobile-number-doctor", postdata);
 };
 
 // -------------------# dashboard services endpoints start here #-------------------------

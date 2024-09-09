@@ -4,7 +4,7 @@ import {Typography} from '@mui/material';
 // project imports
 import NavGroup from './NavGroup';
 import menuItem from '../../menu-items';
-import {useSelector} from "react-redux";
+// import {useSelector} from "react-redux";
 
 // ==============================|| SIDEBAR MENU LIST ||============================== //
 

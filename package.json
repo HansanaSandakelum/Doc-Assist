@@ -21,6 +21,7 @@
     "axios": "^1.7.2",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.13",
+    "dotenv": "^16.4.5",
     "formik": "^2.4.2",
     "framer-motion": "^10.12.18",
     "moment": "^2.30.1",

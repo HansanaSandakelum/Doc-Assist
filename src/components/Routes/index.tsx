@@ -1,21 +1,32 @@
-import {useRoutes} from 'react-router-dom';
+import { useRoutes } from "react-router-dom";
 
-import UnauthorizedRoutes from './UnauthorizedRoutes';
+import UnauthorizedRoutes from "./UnauthorizedRoutes";
 import AdminAuthorizedRoutes from "./AdminAuthorizedRoutes";
 // import {useSelector} from "react-redux";
 import UserAuthorizedRoutes from "./UserAuthorizedRoutes";
+import { useSelector } from "react-redux";
+import { getState } from "../../redux/actions/actions";
 
 // ==============================|| ROUTING RENDER ||============================== //
 
 export default function ThemeRoutes() {
-    // const authState = useSelector((state: any) => state.auth.authData);
-    // const user = getState(authState);
-    // const user = {role: 1};
-    return useRoutes( UnauthorizedRoutes);//user ? ROLES_ROUTES[user?.role] || UnauthorizedRoutes :
-}
+  const authState = useSelector((state: any) => state.auth.authData);
+  // console.log('data:',authState);
 
-// const ROLES_ROUTES: any = {
-//     0: UserAuthorizedRoutes(0),
-//     1: AdminAuthorizedRoutes(1),
-//     undefined: UnauthorizedRoutes
-// };
+  const user = getState(authState);
+
+  console.log("user:", user);
+  //   const user = { role: 0 };
+
+  const ROLES_ROUTES: any = {
+    1: AdminAuthorizedRoutes(1),
+    0: UserAuthorizedRoutes(0),
+    undefined: UnauthorizedRoutes(user),
+  };
+
+  return useRoutes(
+    user
+      ? ROLES_ROUTES[Number(user?.role)] || UnauthorizedRoutes(user)
+      : UnauthorizedRoutes(user)
+  );
+}

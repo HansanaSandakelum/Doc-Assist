@@ -3,17 +3,25 @@ import { openErrorDialog } from "../../utils/ui-components/pop-ups/ErrorDialog";
 import { getLogout, getState } from "../../redux/actions/actions";
 
 
+const nodeEnv = import.meta.env.MODE;
+
+const devUrl = import.meta.env.VITE_API_DEV;
+
+const prodUrl = import.meta.env.VITE_API_PROD;
+
 let store;
 
 export const injectStore = (_store) => {
   store = _store;
 };
 
+// const process = { env: {} };
+
 const interceptor = axios.create({
-  baseURL: "http://localhost:3099/api/v1",
-  // process.env.NODE_ENV === "development"
-    // ? process.env.REACT_APP_API_DEV
-  //   : process.env.REACT_APP_API_PROD,
+  baseURL: 
+  nodeEnv === "development"
+    ? devUrl
+    : prodUrl,
 });
 
 interceptor.interceptors.request.use(
@@ -40,7 +48,7 @@ interceptor.interceptors.response.use(
         error?.response?.data?.status,
         error?.response?.data?.comment
       );
-      store.dispatch(getLogout());
+      // store.dispatch(getLogout());
     } else {
       openErrorDialog(
         error?.response?.data?.status,

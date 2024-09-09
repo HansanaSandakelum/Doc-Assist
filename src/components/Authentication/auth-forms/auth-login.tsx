@@ -20,8 +20,10 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Checkbox from "@mui/material/Checkbox";
 import AnimateButton from "../../../utils/ui-components/AnimateButton";
 
+// import { useSelector } from "react-redux";
+// import { useNavigate } from "react-router-dom";
+
 AuthLogin.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
   loginRequest: PropTypes.func,
   rememberMe: PropTypes.shape({
@@ -55,13 +57,11 @@ function AuthLogin({ loginRequest, rememberMe, theme, ...others }: any) {
       }}
       validationSchema={Yup.object().shape({
         mobileNumber: Yup.number().required("Mobile number is required"),
-        password: Yup.string()
-          .max(255)
-          .required("Password is required")
-          .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-            "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
-          ),
+        password: Yup.string().max(255).required("Password is required"),
+        // .matches(
+        //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+        //   "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+        // ),
         rememberMe: Yup.boolean().required("Required"),
       })}
       onSubmit={async (values) => {
@@ -78,128 +78,131 @@ function AuthLogin({ loginRequest, rememberMe, theme, ...others }: any) {
     >
       {({
         errors,
+        isValid,
         handleBlur,
         handleChange,
         handleSubmit,
         isSubmitting,
         touched,
         values,
-      }: any) => (
-        <form noValidate onSubmit={handleSubmit} {...others}>
-          <FormControl
-            fullWidth
-            error={Boolean(touched.mobileNumber && errors.mobileNumber)}
-            sx={{ ...theme.typography.customInput }}
-          >
-            <InputLabel htmlFor="outlined-adornment-email-login">
-              Mobile Number
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-email-login"
-              type="text"
-              value={values.mobileNumber}
-              name="mobileNumber"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              label="mobileNumber"
-              inputProps={{}}
-              sx={{ borderRadius: 40 }}
-            />
-            {touched.mobileNumber && errors.mobileNumber && (
-              <FormHelperText
-                error
-                id="standard-weight-helper-text-email-login"
-              >
-                {errors.mobileNumber}
-              </FormHelperText>
-            )}
-          </FormControl>
-
-          <FormControl
-            fullWidth
-            error={Boolean(touched.password && errors.password)}
-            sx={{ ...theme.typography.customInput }}
-          >
-            <InputLabel htmlFor="outlined-adornment-password-login">
-              Password
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password-login"
-              type={showPassword ? "text" : "password"}
-              value={values.password}
-              name="password"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              endAdornment={
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                  size="small"
+      }: any) => {
+        return (
+          <form noValidate onSubmit={handleSubmit} {...others}>
+            <FormControl
+              fullWidth
+              error={Boolean(touched.mobileNumber && errors.mobileNumber)}
+              sx={{ ...theme.typography.customInput }}
+            >
+              <InputLabel htmlFor="outlined-adornment-email-login">
+                Mobile Number
+              </InputLabel>
+              <OutlinedInput
+                id="mobileNumber"
+                type="text"
+                value={values.mobileNumber}
+                name="mobileNumber"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                label="mobileNumber"
+                inputProps={{}}
+                sx={{ borderRadius: 40 }}
+              />
+              {touched.mobileNumber && errors.mobileNumber && (
+                <FormHelperText
+                  error
+                  id="standard-weight-helper-text-email-login"
                 >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              }
-              label="Password"
-              inputProps={{}}
-              sx={{ borderRadius: 40 }}
-            />
-            {touched.password && errors.password && (
-              <FormHelperText
-                error
-                id="standard-weight-helper-text-password-login"
-              >
-                {errors.password}
-              </FormHelperText>
-            )}
-          </FormControl>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            spacing={1}
-          >
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={values.rememberMe}
-                  onChange={handleChange}
-                  name="rememberMe"
-                  color="primary"
-                />
-              }
-              label="Remember me"
-            />
-            {/*<Typography variant="subtitle1" color="primary"*/}
-            {/*            sx={{textDecoration: 'none', cursor: 'pointer'}}>*/}
-            {/*    Forgot Password?*/}
-            {/*</Typography>*/}
-          </Stack>
-          {errors.submit && (
-            <Box sx={{ mt: 3 }}>
-              <FormHelperText error>{errors.submit}</FormHelperText>
-            </Box>
-          )}
+                  {errors.mobileNumber}
+                </FormHelperText>
+              )}
+            </FormControl>
 
-          <Box sx={{ mt: 2 }}>
-            <AnimateButton>
-              <Button
-                disableElevation
-                disabled={isSubmitting}
-                fullWidth
-                size="large"
-                type="submit"
-                variant="contained"
-                color="primary"
-                sx={{ color: "white", fontWeight: "bold", p: 1.5 }}
-              >
-                Sign in
-              </Button>
-            </AnimateButton>
-          </Box>
-        </form>
-      )}
+            <FormControl
+              fullWidth
+              error={Boolean(touched.password && errors.password)}
+              sx={{ ...theme.typography.customInput }}
+            >
+              <InputLabel htmlFor="outlined-adornment-password-login">
+                Password
+              </InputLabel>
+              <OutlinedInput
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={values.password}
+                name="password"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                endAdornment={
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                    size="small"
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                }
+                label="Password"
+                inputProps={{}}
+                sx={{ borderRadius: 40 }}
+              />
+              {touched.password && errors.password && (
+                <FormHelperText
+                  error
+                  id="standard-weight-helper-text-password-login"
+                >
+                  {errors.password}
+                </FormHelperText>
+              )}
+            </FormControl>
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+              spacing={1}
+            >
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={values.rememberMe}
+                    onChange={handleChange}
+                    name="rememberMe"
+                    color="primary"
+                  />
+                }
+                label="Remember me"
+              />
+              {/*<Typography variant="subtitle1" color="primary"*/}
+              {/*            sx={{textDecoration: 'none', cursor: 'pointer'}}>*/}
+              {/*    Forgot Password?*/}
+              {/*</Typography>*/}
+            </Stack>
+            {errors.submit && (
+              <Box sx={{ mt: 3 }}>
+                <FormHelperText error>{errors.submit}</FormHelperText>
+              </Box>
+            )}
+
+            <Box sx={{ mt: 2 }}>
+              <AnimateButton>
+                <Button
+                  disableElevation
+                  disabled={isSubmitting || !isValid}
+                  fullWidth
+                  size="large"
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  sx={{ color: "white", fontWeight: "bold", p: 1.5 }}
+                >
+                  Sign in
+                </Button>
+              </AnimateButton>
+            </Box>
+          </form>
+        );
+      }}
     </Formik>
   );
 }

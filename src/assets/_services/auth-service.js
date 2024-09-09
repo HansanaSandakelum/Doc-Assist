@@ -29,6 +29,7 @@ async function verifyLogin(formData) {
 async function validateMobile(formData) {
   try {
     const { data } = await api.sentOTP(formData);
+
     return { isSuccess: true, data: data };
   } catch (error) {
     return { isSuccess: false, data: error };
@@ -38,6 +39,7 @@ async function validateMobile(formData) {
 async function verifyMobile(formData) {
   try {
     const { data } = await api.verifyTheNumber(formData);
+    console.log(data);
     return { isSuccess: true, data: data };
   } catch (error) {
     return { isSuccess: false, data: error };
