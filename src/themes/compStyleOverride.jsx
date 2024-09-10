@@ -13,6 +13,7 @@ export default function componentStyleOverrides(theme) {
         },
 
         contained: {
+         
           color: theme.paper,
         },
       },
@@ -148,7 +149,7 @@ export default function componentStyleOverrides(theme) {
           borderRadius: `${theme?.customization?.borderRadius}px`,
 
           "& .MuiOutlinedInput-notchedOutline": {
-            borderColor: theme.colors?.grey400,
+            borderColor: theme.colors?.grey500,
           },
 
           "&:hover $notchedOutline": {
@@ -165,7 +166,7 @@ export default function componentStyleOverrides(theme) {
 
           background: bgColor,
 
-          padding: "15.5px 14px",
+          padding: "10px 50px",
 
           borderRadius: `${theme?.customization?.borderRadius}px`,
 

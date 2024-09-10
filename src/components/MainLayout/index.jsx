@@ -119,8 +119,8 @@ const MainLayout = (role) => {
         />
 
         {/* main content */}
-        <Main theme={theme} open={leftDrawerOpened}>
-          <Layout theme={theme} open={leftDrawerOpened}>
+        <Main  open={leftDrawerOpened}>
+          <Layout theme={theme} open={leftDrawerOpened}  sx={{backgroundImage:"linear-gradient(45deg, #92D2BE 0%, #CBC9F3 99%, #fad0c4 100%)"}}>
             <Outlet />
           </Layout>
           <AuthFooter />

@@ -3,7 +3,7 @@ import MainLayout from "../MainLayout";
 import Loadable from "./RouteLoad/Loadable";
 import {lazy} from "react";
 
-const Dashboard = Loadable(lazy(() => import('../Dashboard/new dashboard/index')));
+const Dashboard = Loadable(lazy(() => import('../Dashboard/new-dashboard/index')));
 const Configurations = Loadable(lazy(() => import('../Configurations')));
 const UserList = Loadable(lazy(() => import('../Users/user-list')))
 const UserView = Loadable(lazy(() => import('../Users/view-user')));

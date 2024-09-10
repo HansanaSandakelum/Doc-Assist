@@ -33,8 +33,8 @@ export default function BasicCard() {
           }}
         >
           <Typography component="div" variant="h1" style={{ fontWeight: 500 }}>
-            Your Journey to Better Health Starts{" "}
-            <Box sx={{ color: "black" }}>Here </Box>
+            Your Journey to Better Health {" "}
+            <Box sx={{ color: "black" }}>Starts Here </Box>
           </Typography>
         </Box>
       </CardContent>
