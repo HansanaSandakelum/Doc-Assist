@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -12,9 +12,13 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import { GridSearchIcon } from "@mui/x-data-grid";
-import CarouselSlider from "./carouselSlider";
+// import CarouselSlider from "./carouselSlider";
 import AnimateButton from "../../../utils/ui-components/AnimateButton";
 import DataGridDemo from "./out-of-stock-table";
+import EmblaCarousel from "./emblaCarousel/EmblaCarousel";
+import { EmblaOptionsType } from "embla-carousel";
+import "../new-dashboard/emblaCarousel/embla.css";
+import Clock from "react-live-clock";
 
 const GlassCardWrapper = styled(Card)(() => ({
   background: "rgba(255, 255, 255, 0.1)", // Semi-transparent white
@@ -30,7 +34,25 @@ const GlassCardWrapper = styled(Card)(() => ({
   // Optional max width for the card
 }));
 
+//?...................Embla Carousel.....................
+const OPTIONS: EmblaOptionsType = { dragFree: true };
+const SLIDE_COUNT = 8;
+const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
+
 const GlassCard: React.FC = () => {
+  //?....................Clock.....................
+  const [time, setTime] = useState<string>();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const date = new Date();
+      setTime(date.toLocaleTimeString());
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   // const theme: any = useTheme();
   return (
     <Grid container spacing={2} p={{ sx: 0, md: 2 }}>
@@ -97,13 +119,34 @@ const GlassCard: React.FC = () => {
       <Grid item xs={12} md={8} lg={9}>
         <GlassCardWrapper>
           <CardContent>
-            <Typography variant="h5" component="div">
-              Glassmorphism Card
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              This is an example of a card with a glassmorphism effect using
-              Material-UI and TypeScript.
-            </Typography>
+            <Grid
+              container
+              spacing={1}
+              display={"flex"}
+              alignItems={"center"}
+              marginX={'auto'}
+            >
+              <Grid item xs={12} sm={6} md={6} lg={5}>
+                <Typography variant="h1" component="div">
+                  Daily Revenue
+                </Typography>
+                <Typography variant="h1" color="text.secondary">
+                  Rs.33333
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={6} md={6} lg={7}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "36px", sm: "50px" },
+                    fontWeight: "bold",
+                    fontFamily: "Poppins",
+                  }}
+                  color="primary.dark"
+                >
+                  {time}
+                </Typography>
+              </Grid>
+            </Grid>
           </CardContent>
         </GlassCardWrapper>
       </Grid>
@@ -113,7 +156,10 @@ const GlassCard: React.FC = () => {
             <Grid container spacing={3} display={"flex"} alignItems={"center"}>
               <Grid item xs={4} display={{ xs: "none", md: "block" }}>
                 <Typography
-                  variant="h2"
+                  sx={{
+                    fontWeight: "bold",
+                    fontSize: { xs: 10, sm: 40, md: 50 },
+                  }}
                   align="center"
                   color="primary"
                   gutterBottom
@@ -123,7 +169,8 @@ const GlassCard: React.FC = () => {
               </Grid>
 
               <Grid item xs={12} md={8}>
-                <CarouselSlider />
+                {/* <CarouselSlider /> */}
+                <EmblaCarousel slides={SLIDES} options={OPTIONS} />
               </Grid>
             </Grid>
           </CardContent>
@@ -132,10 +179,8 @@ const GlassCard: React.FC = () => {
       <Grid item xs={12}>
         <GlassCardWrapper>
           <CardContent>
-            <Typography variant="h5" component="div">
-              Glassmorphism Card
-            </Typography>
-           <DataGridDemo />
+            {/* <Typography variant="h5" component="div"></Typography> */}
+            <DataGridDemo />
           </CardContent>
         </GlassCardWrapper>
       </Grid>
